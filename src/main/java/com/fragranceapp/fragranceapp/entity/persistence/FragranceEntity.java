@@ -37,16 +37,6 @@ public class FragranceEntity {
     @JsonIgnore
     private FragranceCategoryEntity fragranceCategoryEntity;
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "fragrances_orders",
-            joinColumns = @JoinColumn(name = "frag_id"),
-            inverseJoinColumns = @JoinColumn(name = "ord_id")
-
-    )
-    private Set<OrderEntity> orders;
-
     public FragranceEntity() {
 
     }
@@ -55,14 +45,12 @@ public class FragranceEntity {
                            String amount,
                            double price,
                            int quantity,
-                           FragranceCategoryEntity fragranceCategoryEntity,
-                           Set<OrderEntity> orders) {
+                           FragranceCategoryEntity fragranceCategoryEntity) {
         this.name = name;
         this.amount = amount;
         this.price = price;
         this.quantity = quantity;
         this.fragranceCategoryEntity = fragranceCategoryEntity;
-        this.orders = orders;
     }
 
     public LocalDateTime getFrag_created_at() {
@@ -79,14 +67,6 @@ public class FragranceEntity {
 
     public void setFrag_updated_at(LocalDateTime frag_updated_at) {
         this.frag_updated_at = frag_updated_at;
-    }
-
-    public Set<OrderEntity> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<OrderEntity> orders) {
-        this.orders = orders;
     }
 
     public long getId() {

@@ -24,7 +24,7 @@ public class FragranceCategoryServiceImpl implements FragranceCategoryService {
 
     @Override
     public CategoryDTO createCategory(CategoryDTO newCategory) {
-       FragranceCategoryEntity fragranceCategoryEntity = Mapper.mapToEntity(newCategory);
+       FragranceCategoryEntity fragranceCategoryEntity = Mapper.dtoToCategory(newCategory);
        fragranceCategoryRepository.save(fragranceCategoryEntity);
 
        return newCategory;
@@ -34,7 +34,7 @@ public class FragranceCategoryServiceImpl implements FragranceCategoryService {
     public List<CategoryDTO> getAllCategories() {
         List<FragranceCategoryEntity> categories = fragranceCategoryRepository.findAll();
         List<CategoryDTO> categoriesDTO = categories.stream()
-                .map(entity -> Mapper.mapToDto(entity))
+                .map(entity -> Mapper.categoryToDto(entity))
                 .collect(Collectors.toList());
 
         return categoriesDTO;
@@ -47,7 +47,7 @@ public class FragranceCategoryServiceImpl implements FragranceCategoryService {
             throw new FragranceCategoryNotFoundException("The category with id " + cateogryId + " doesn't exist");
         }
 
-        return Mapper.mapToDto(category.get());
+        return Mapper.categoryToDto(category.get());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class FragranceCategoryServiceImpl implements FragranceCategoryService {
         category.get().setCategory(updateCategory.getCategory());
         fragranceCategoryRepository.save(category.get());
 
-        return Mapper.mapToDto(category.get());
+        return Mapper.categoryToDto(category.get());
     }
 
     @Override

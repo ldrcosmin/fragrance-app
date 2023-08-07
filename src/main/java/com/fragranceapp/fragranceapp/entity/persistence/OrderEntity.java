@@ -30,8 +30,11 @@ public class OrderEntity {
     @Column(name = "order_value")
     private double value;
 
-    @ManyToMany(mappedBy = "orders",
-                fetch = FetchType.LAZY
+    @ManyToMany
+    @JoinTable(
+            name = "order_fragrance",
+            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "ord_id"),
+            inverseJoinColumns = @JoinColumn(name = "fragrance_id", referencedColumnName = "frag_id")
     )
     private List<FragranceEntity> content;
 

@@ -1,16 +1,17 @@
 package com.fragranceapp.fragranceapp.service.fragrance;
 
-import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
 import org.springframework.stereotype.Service;
+import com.fragranceapp.fragranceapp.dto.FragranceDTO;
 
 import java.util.List;
 
 @Service
 public interface  FragranceService {
 
-//    FragranceDTO createFragrance(long categoryId, FragranceEntity newFragrance);
-//    List<FragranceDTO> getAllFragrancesByCategory(long categoryId);
-//    FragranceDTO getFragranceById(long fragranceId);
-//    FragranceDTO updateFragrance(long fragranceId, FragranceEntity updateFragrance);
-//    void deleteFragrance(long fragranceId);
+    FragranceDTO createFragrance(FragranceDTO newFragrance);
+    List<FragranceDTO> getAllFragrances();
+    List<FragranceDTO> getAllFragrancesByCategoryId(long categoryId);
+    FragranceDTO getFragranceById(long fragranceId);
+    FragranceDTO updateFragrance(long fragranceId, FragranceDTO updateFragrance);
+    void deleteFragrance(long fragranceId);
 }

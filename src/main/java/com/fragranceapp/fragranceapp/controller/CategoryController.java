@@ -2,7 +2,6 @@ package com.fragranceapp.fragranceapp.controller;
 
 import com.fragranceapp.fragranceapp.dto.CategoryDTO;
 import com.fragranceapp.fragranceapp.service.fragranceCategory.FragranceCategoryServiceImpl;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
 
@@ -45,7 +44,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable long id, @Valid @RequestBody CategoryDTO newCategory) {
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable long id, @RequestBody CategoryDTO newCategory) {
         CategoryDTO categoryDTO = fragranceCategoryService.updateCategory(id, newCategory);
 
         return new ResponseEntity<>(categoryDTO, HttpStatus.OK);

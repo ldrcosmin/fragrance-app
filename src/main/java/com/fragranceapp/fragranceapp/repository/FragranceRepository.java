@@ -15,8 +15,8 @@ public interface FragranceRepository extends JpaRepository<FragranceEntity, Long
     Optional<FragranceEntity> findFragranceById(long fragranceId);
 
     @Query(value = "select * from fragranceapp.fragrances f " +
-            "inner join fragranceapp.categories c on f.frag_id = c.cat_id " +
+            "inner join fragranceapp.categories c on f.category_id = c.cat_id " +
             "where c.cat_id = :categoryId", nativeQuery = true)
-    Optional<FragranceEntity> findFragranceByCategoryId(long categoryId);
+    List<FragranceEntity> getAllFragrancesByCategoryId(long categoryId);
 
 }
