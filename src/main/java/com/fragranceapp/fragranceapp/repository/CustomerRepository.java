@@ -10,6 +10,8 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
 
+    Optional<CustomerEntity> findCustomerById(long customerId);
+
     @Query(value = "select * from fragranceapp.customers c " +
             "inner join fragranceapp.users u on c.user_id = u.usr_id " +
             "where u.email = :userEmail", nativeQuery = true)

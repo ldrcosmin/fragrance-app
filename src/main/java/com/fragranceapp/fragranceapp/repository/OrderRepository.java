@@ -11,8 +11,10 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
+    Optional<OrderEntity> findOrderById(long orderId);
+
     @Query(value = "select * from fragranceapp.orders o " +
             "inner join fragranceapp.customers c on o.customer_id = c.cust_id " +
             "where c.cust_id = :customerId", nativeQuery = true)
-    Optional<List<OrderEntity>> findOrdersByCustomerId(long customerId);
+    List<OrderEntity> findOrdersByCustomerId(long customerId);
 }

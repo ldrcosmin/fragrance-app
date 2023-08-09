@@ -8,7 +8,6 @@ import com.fragranceapp.fragranceapp.exceptions.fragranceExceptions.FragranceNot
 import com.fragranceapp.fragranceapp.mapper.Mapper;
 import com.fragranceapp.fragranceapp.repository.FragranceCategoryRepository;
 import com.fragranceapp.fragranceapp.repository.FragranceRepository;
-import com.fragranceapp.fragranceapp.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,6 @@ public class FragranceServiceImpl implements FragranceService {
 
     private FragranceRepository fragranceRepository;
     private FragranceCategoryRepository fragranceCategoryRepository;
-    private OrderRepository orderRepository;
 
     @Autowired
     public FragranceServiceImpl(FragranceRepository fragranceRepository,
