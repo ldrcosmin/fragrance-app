@@ -14,7 +14,7 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     Optional<OrderEntity> findOrderById(long orderId);
 
     @Query(value = "select * from fragranceapp.orders o " +
-            "inner join fragranceapp.customers c on o.customer_id = c.cust_id " +
-            "where c.cust_id = :customerId", nativeQuery = true)
-    List<OrderEntity> findOrdersByCustomerId(long customerId);
+            "inner join fragranceapp.users u on o.user_id = u.usr_id " +
+            "where u.usr_id = :userId", nativeQuery = true)
+    List<OrderEntity> findOrdersByUserId(long userId);
 }

@@ -1,8 +1,6 @@
 package com.fragranceapp.fragranceapp.entity.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fragranceapp.fragranceapp.entity.persistence.CustomerEntity;
-import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -38,20 +36,20 @@ public class OrderEntity {
     )
     private List<FragranceEntity> content;
 
-    @JsonIgnore
+   // @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customerEntity;
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
     public OrderEntity() {
 
     }
 
-    public OrderEntity(String info, double value, List<FragranceEntity> content, CustomerEntity customerEntity) {
+    public OrderEntity(String info, double value, List<FragranceEntity> content, UserEntity userEntity) {
         this.info = info;
         this.value = value;
         this.content = content;
-        this.customerEntity = customerEntity;
+        this.userEntity = userEntity;
     }
 
     public LocalDateTime getOrd_created_at() {
@@ -118,12 +116,12 @@ public class OrderEntity {
         this.value = value;
     }
 
-    public CustomerEntity getCustomerEntity() {
-        return customerEntity;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setCustomerEntity(CustomerEntity customerEntity) {
-        this.customerEntity = customerEntity;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     @Override

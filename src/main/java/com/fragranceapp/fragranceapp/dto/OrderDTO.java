@@ -13,25 +13,25 @@ public class OrderDTO {
     private List<Long> content;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Long customerId;
+    private Long userId;
 
     public OrderDTO() {
 
     }
 
-    public OrderDTO(String info, double value, List<Long> content, Long customerId) {
+    public OrderDTO(String info, double value, List<Long> content, Long userId) {
         this.info = info;
         this.value = value;
         this.content = content;
-        this.customerId = customerId;
+        this.userId = userId;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getInfo() {

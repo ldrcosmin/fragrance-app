@@ -1,16 +1,16 @@
 package com.fragranceapp.fragranceapp.service.order;
 
 import com.fragranceapp.fragranceapp.dto.OrderDTO;
-import com.fragranceapp.fragranceapp.entity.persistence.CustomerEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.OrderEntity;
-import com.fragranceapp.fragranceapp.exceptions.customerExceptions.CustomerNotFoundException;
+import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
 import com.fragranceapp.fragranceapp.exceptions.orderExceptions.CancelOrderException;
 import com.fragranceapp.fragranceapp.exceptions.orderExceptions.OrderNotFoundException;
+import com.fragranceapp.fragranceapp.exceptions.userExceptions.UserNotFoundException;
 import com.fragranceapp.fragranceapp.mapper.Mapper;
-import com.fragranceapp.fragranceapp.repository.CustomerRepository;
 import com.fragranceapp.fragranceapp.repository.FragranceRepository;
 import com.fragranceapp.fragranceapp.repository.OrderRepository;
+import com.fragranceapp.fragranceapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +24,15 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private OrderRepository orderRepository;
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
     private FragranceRepository fragranceRepository;
 
     @Autowired
     public OrderServiceImpl(OrderRepository orderRepository,
-                            CustomerRepository customerRepository,
+                            UserRepository userRepository,
                             FragranceRepository fragranceRepository) {
         this.orderRepository = orderRepository;
-        this.customerRepository = customerRepository;
+        this.userRepository = userRepository;
         this.fragranceRepository = fragranceRepository;
     }
 
@@ -40,16 +40,16 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO createOrder(OrderDTO newOrder) {
         OrderEntity orderEntity = Mapper.dtoToOrder(newOrder);
         List<FragranceEntity> fragrances = fragranceRepository.findByIdIn(newOrder.getContent());
-        Optional<CustomerEntity> customer = customerRepository.findCustomerById(newOrder.getCustomerId());
-        if(customer.isEmpty()) {
-            throw new CustomerNotFoundException("The customer with id " + newOrder.getCustomerId() + " doesn't exist");
+        Optional<UserEntity> user = userRepository.findUserById(newOrder.getUserId());
+        if(user.isEmpty()) {
+            throw new UserNotFoundException("The user with id " + newOrder.getUserId() + " doesn't exist");
         }
         double value = Double.MIN_VALUE;
         for(FragranceEntity fragrance : fragrances){
             value = value + fragrance.getPrice();
         }
         orderEntity.setContent(fragrances);
-        orderEntity.setCustomerEntity(customer.get());
+        orderEntity.setUserEntity(user.get());
         orderEntity.setValue(value);
         orderRepository.save(orderEntity);
 
@@ -57,8 +57,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getOrdersByCustomerId(long customerId) {
-        List<OrderEntity> orders = orderRepository.findOrdersByCustomerId(customerId);
+    public List<OrderDTO> getOrdersByUserId(long userId) {
+        List<OrderEntity> orders = orderRepository.findOrdersByUserId(userId);
         List<OrderDTO> orderDTOS = orders.stream()
                 .map(entity -> Mapper.orderToDto(entity))
                 .collect(Collectors.toList());

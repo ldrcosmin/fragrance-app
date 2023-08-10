@@ -3,9 +3,11 @@ package com.fragranceapp.fragranceapp.mapper;
 import com.fragranceapp.fragranceapp.dto.CategoryDTO;
 import com.fragranceapp.fragranceapp.dto.FragranceDTO;
 import com.fragranceapp.fragranceapp.dto.OrderDTO;
+import com.fragranceapp.fragranceapp.dto.UserDTO;
 import com.fragranceapp.fragranceapp.entity.persistence.FragranceCategoryEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.OrderEntity;
+import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,6 +66,30 @@ public class Mapper {
         orderEntity.setValue(orderDTO.getValue());
 
         return orderEntity;
+    }
+
+    public static UserDTO userToDto(UserEntity userEntity) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(userEntity.getEmail());
+        userDTO.setPassword(userEntity.getPassword());
+        userDTO.setRole(userEntity.getRole());
+        userDTO.setName(userEntity.getName());
+        userDTO.setPhoneNumber(userEntity.getPhoneNumber());
+        userDTO.setAddress(userEntity.getAddress());
+
+        return userDTO;
+    }
+
+    public static UserEntity dtoToUser(UserDTO userDTO) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(userDTO.getEmail());
+        userEntity.setPassword(userDTO.getPassword());
+        userEntity.setRole(userDTO.getRole());
+        userEntity.setName(userDTO.getName());
+        userEntity.setPhoneNumber(userDTO.getPhoneNumber());
+        userEntity.setAddress(userDTO.getAddress());
+
+        return userEntity;
     }
 
 

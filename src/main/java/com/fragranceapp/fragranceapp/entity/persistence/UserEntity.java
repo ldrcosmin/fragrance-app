@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "fragranceapp")
@@ -24,34 +25,65 @@ public class UserEntity {
 
     private String email;
     private String password;
+    private String name;
+    private String phoneNumber;
+    private String address;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(
-            mappedBy = "userEntity",
-            fetch = FetchType.LAZY ,
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true
-    )
-    private AdministratorEntity administratorEntity;
-
-    @OneToOne(
+    @OneToMany(
             mappedBy = "userEntity",
             fetch = FetchType.LAZY,
             cascade = CascadeType.REMOVE,
             orphanRemoval = true
     )
-    private CustomerEntity customerEntity;
+    private Set<OrderEntity> orders;
 
     public UserEntity() {
 
     }
 
-    public UserEntity(String email, String password, Role role) {
+    public UserEntity(String email, String password, String name, String phoneNumber, String address, Role role, Set<OrderEntity> orders) {
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
         this.role = role;
+        this.orders = orders;
+    }
+
+    public Set<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderEntity> orders) {
+        this.orders = orders;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public LocalDateTime getUsr_created_at() {
@@ -118,21 +150,6 @@ public class UserEntity {
         this.role = role;
     }
 
-    public AdministratorEntity getAdministratorEntity() {
-        return administratorEntity;
-    }
-
-    public void setAdministratorEntity(AdministratorEntity administratorEntity) {
-        this.administratorEntity = administratorEntity;
-    }
-
-    public CustomerEntity getCustomerEntity() {
-        return customerEntity;
-    }
-
-    public void setCustomerEntity(CustomerEntity customerEntity) {
-        this.customerEntity = customerEntity;
-    }
 
     @Override
     public String toString() {
