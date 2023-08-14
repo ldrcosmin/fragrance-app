@@ -1,19 +1,27 @@
 package com.fragranceapp.fragranceapp.mapper;
 
-import com.fragranceapp.fragranceapp.dto.CategoryDTO;
-import com.fragranceapp.fragranceapp.dto.FragranceDTO;
-import com.fragranceapp.fragranceapp.dto.OrderDTO;
-import com.fragranceapp.fragranceapp.dto.UserDTO;
-import com.fragranceapp.fragranceapp.entity.persistence.FragranceCategoryEntity;
-import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
-import com.fragranceapp.fragranceapp.entity.persistence.OrderEntity;
-import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
+import com.fragranceapp.fragranceapp.dto.*;
+import com.fragranceapp.fragranceapp.entity.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Mapper {
+
+    public static UserRoleDTO roleToDto(UserRoleEntity userRoleEntity) {
+        UserRoleDTO userRoleDTO = new UserRoleDTO();
+        userRoleDTO.setRole(userRoleEntity.getRole());
+
+        return userRoleDTO;
+    }
+
+    public static UserRoleEntity dtoToRole(UserRoleDTO userRoleDTO) {
+        UserRoleEntity userRoleEntity = new UserRoleEntity();
+        userRoleEntity.setRole(userRoleDTO.getRole());
+        userRoleEntity.setCreated_at(LocalDateTime.now());
+        userRoleEntity.setUpdated_at(LocalDateTime.now());
+
+        return userRoleEntity;
+    }
 
 
     public static CategoryDTO categoryToDto(FragranceCategoryEntity fragranceCategoryEntity) {
@@ -72,7 +80,6 @@ public class Mapper {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(userEntity.getEmail());
         userDTO.setPassword(userEntity.getPassword());
-        userDTO.setRole(userEntity.getRole());
         userDTO.setName(userEntity.getName());
         userDTO.setPhoneNumber(userEntity.getPhoneNumber());
         userDTO.setAddress(userEntity.getAddress());
@@ -84,7 +91,6 @@ public class Mapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setPassword(userDTO.getPassword());
-        userEntity.setRole(userDTO.getRole());
         userEntity.setName(userDTO.getName());
         userEntity.setPhoneNumber(userDTO.getPhoneNumber());
         userEntity.setAddress(userDTO.getAddress());

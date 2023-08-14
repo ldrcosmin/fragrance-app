@@ -3,29 +3,39 @@ package com.fragranceapp.fragranceapp.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fragranceapp.fragranceapp.entity.enums.Role;
 
+import java.util.List;
+
 public class UserDTO {
 
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
     private String name;
     private String phoneNumber;
     private String address;
-    private Role role;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long roleId;
 
     public UserDTO() {
 
     }
 
-    public UserDTO(String email, String password, String name, String phoneNumber, String address, Role role) {
+    public UserDTO(String email, String password, String name, String phoneNumber, String address) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.role = role;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public String getPhoneNumber() {
@@ -68,11 +78,4 @@ public class UserDTO {
         this.name = name;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

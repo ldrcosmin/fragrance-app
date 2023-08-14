@@ -43,7 +43,7 @@ public class FragranceServiceImpl implements FragranceService {
         FragranceEntity fragrance = Mapper.dtoToFragrance(newFragrance);
         Optional<FragranceCategoryEntity> category = fragranceCategoryRepository.findCategoryById(newFragrance.getCategoryId());
         if(category.isEmpty()) {
-            throw new FragranceCategoryNotFoundException("The category with id " + newFragrance.getCategoryId() + " couldn't be found");
+            throw new FragranceCategoryNotFoundException("The category with id " + newFragrance.getCategoryId() + " doesn't exist");
         }
         fragrance.setFragranceCategoryEntity(category.get());
         fragranceRepository.save(fragrance);

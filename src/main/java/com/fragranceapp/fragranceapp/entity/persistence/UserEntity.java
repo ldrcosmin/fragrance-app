@@ -29,9 +29,6 @@ public class UserEntity {
     private String phoneNumber;
     private String address;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @OneToMany(
             mappedBy = "userEntity",
             fetch = FetchType.LAZY,
@@ -40,18 +37,28 @@ public class UserEntity {
     )
     private Set<OrderEntity> orders;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private UserRoleEntity role;
+
     public UserEntity() {
 
     }
 
-    public UserEntity(String email, String password, String name, String phoneNumber, String address, Role role, Set<OrderEntity> orders) {
+    public UserEntity(String email,
+                      String password,
+                      String name,
+                      String phoneNumber,
+                      String address,
+                      Set<OrderEntity> orders,
+                      UserRoleEntity role) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.role = role;
         this.orders = orders;
+        this.role = role;
     }
 
     public Set<OrderEntity> getOrders() {
@@ -142,24 +149,23 @@ public class UserEntity {
         this.password = password;
     }
 
-    public Role getRole() {
+    public UserRoleEntity getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRoleEntity role) {
         this.role = role;
     }
-
 
     @Override
     public String toString() {
         return "UserEntity{" +
-                "id=" + id +
-                ", created_at=" + usr_created_at +
-                ", updated_at=" + usr_updated_at +
-                ", email='" + email + '\'' +
+                "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
+

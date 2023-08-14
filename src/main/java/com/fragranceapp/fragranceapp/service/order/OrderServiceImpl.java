@@ -4,6 +4,7 @@ import com.fragranceapp.fragranceapp.dto.OrderDTO;
 import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.OrderEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
+import com.fragranceapp.fragranceapp.exceptions.fragranceExceptions.FragranceOutOfStock;
 import com.fragranceapp.fragranceapp.exceptions.orderExceptions.CancelOrderException;
 import com.fragranceapp.fragranceapp.exceptions.orderExceptions.OrderNotFoundException;
 import com.fragranceapp.fragranceapp.exceptions.userExceptions.UserNotFoundException;
@@ -45,8 +46,15 @@ public class OrderServiceImpl implements OrderService {
             throw new UserNotFoundException("The user with id " + newOrder.getUserId() + " doesn't exist");
         }
         double value = Double.MIN_VALUE;
+        int quantity = Integer.MIN_VALUE;
         for(FragranceEntity fragrance : fragrances){
+            if(fragrance.getQuantity() <= 0) {
+                throw new FragranceOutOfStock("The fragrance with id " + fragrance.getId() + " is out of stock");
+            }
             value = value + fragrance.getPrice();
+            quantity = fragrance.getQuantity() - 1;
+            fragrance.setQuantity(quantity);
+            fragranceRepository.save(fragrance);
         }
         orderEntity.setContent(fragrances);
         orderEntity.setUserEntity(user.get());

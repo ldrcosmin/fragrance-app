@@ -36,7 +36,7 @@ public class OrderEntity {
     )
     private List<FragranceEntity> content;
 
-   // @JsonIgnore
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;

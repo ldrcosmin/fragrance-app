@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.Order;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -52,6 +53,7 @@ public class FragranceEntity {
         this.quantity = quantity;
         this.fragranceCategoryEntity = fragranceCategoryEntity;
     }
+
 
     public LocalDateTime getFrag_created_at() {
         return frag_created_at;
