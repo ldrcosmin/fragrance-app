@@ -6,6 +6,7 @@ import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.UserRoleEntity;
 import com.fragranceapp.fragranceapp.exceptions.roleExceptions.RoleNotFoundException;
 import com.fragranceapp.fragranceapp.exceptions.userExceptions.InvalidPasswordException;
+import com.fragranceapp.fragranceapp.exceptions.userExceptions.UserAlreadyExistException;
 import com.fragranceapp.fragranceapp.exceptions.userExceptions.UserNotFoundException;
 import com.fragranceapp.fragranceapp.mapper.Mapper;
 import com.fragranceapp.fragranceapp.repository.UserRepository;
@@ -59,6 +60,11 @@ public class UserServiceImpl implements  UserService {
         Optional<UserRoleEntity> userRoleEntity = userRoleRepository.findRoleById(newUser.getRoleId());
         if(userRoleEntity.isEmpty()) {
             throw new RoleNotFoundException("The role with id " + newUser.getRoleId() + " doesn't exist");
+        }
+        for(UserEntity user : userRepository.findAll()) {
+            if(newUser.getEmail().equals(user.getEmail())) {
+                throw new UserAlreadyExistException("This user already exist!");
+            }
         }
         userEntity.setRole(userRoleEntity.get());
         userEntity.setPassword(passwordConfig.passwordEncoder().encode(newUser.getPassword()));

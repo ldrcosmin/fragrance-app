@@ -1,7 +1,6 @@
 package com.fragranceapp.fragranceapp.controller;
 
 import com.fragranceapp.fragranceapp.dto.FragranceDTO;
-import com.fragranceapp.fragranceapp.entity.persistence.FragranceEntity;
 import com.fragranceapp.fragranceapp.service.fragrance.FragranceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -20,4 +20,14 @@ public class UserExceptionHandler {
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<String> handleUserAlreadyExistException(UserAlreadyExistException e, HttpServletRequest request) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<String> handleInvalidPasswordException(InvalidPasswordException e, HttpServletRequest request) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

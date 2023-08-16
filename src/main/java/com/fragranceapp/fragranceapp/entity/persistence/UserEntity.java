@@ -39,6 +39,7 @@ public class UserEntity {
     private Set<OrderEntity> orders;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private UserRoleEntity role;
 
     public UserEntity() {
