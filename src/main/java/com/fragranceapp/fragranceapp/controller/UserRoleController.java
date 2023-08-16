@@ -49,7 +49,7 @@ public class UserRoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserRoleDTO> deleteRole(@PathVariable long id) {
+    public ResponseEntity deleteRole(@PathVariable long id) {
         roleService.deleteRole(id);
 
         return ResponseEntity.ok().build();

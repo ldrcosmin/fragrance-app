@@ -57,7 +57,7 @@ public class FragranceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<FragranceDTO> deleteFragrance(@PathVariable long id) {
+    public ResponseEntity deleteFragrance(@PathVariable long id) {
         fragranceService.deleteFragrance(id);
 
         return ResponseEntity.ok().build();

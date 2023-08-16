@@ -35,7 +35,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<OrderDTO> cancelOrder(@PathVariable long orderId) {
+    public ResponseEntity cancelOrder(@PathVariable long orderId) {
         orderService.cancelOrder(orderId);
 
         return ResponseEntity.ok().build();
