@@ -12,7 +12,7 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     UserDTO getUserById(long userId);
     void deleteUser(long userId);
-    UserDTO updateUser(UserDTO updateUser);
+    UserDTO updateUser(long userId, UserDTO updateUser);
     UserDTO getUserByEmail(String email);
 
 }

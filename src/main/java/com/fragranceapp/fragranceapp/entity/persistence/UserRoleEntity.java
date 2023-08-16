@@ -6,6 +6,7 @@ import jdk.jfr.Timestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,24 +29,33 @@ public class UserRoleEntity {
 
     @OneToMany(
             mappedBy = "role",
-            fetch = FetchType.LAZY)
-    private Set<UserEntity> users;
+            fetch = FetchType.LAZY
+    )
+    private List<UserEntity> users;
 
     public UserRoleEntity() {
 
     }
 
-    public UserRoleEntity(Role role, Set<UserEntity> users) {
+    public UserRoleEntity(Role role, List<UserEntity> users) {
         this.role = role;
         this.users = users;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 
     public Role getRole() {
@@ -70,13 +80,5 @@ public class UserRoleEntity {
 
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public Set<UserEntity> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<UserEntity> users) {
-        this.users = users;
     }
 }

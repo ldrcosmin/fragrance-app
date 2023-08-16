@@ -28,9 +28,7 @@ public class FragranceCategoryEntity {
 
     @OneToMany(
             mappedBy = "fragranceCategoryEntity",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true
+            fetch = FetchType.LAZY
     )
     private List<FragranceEntity> fragranceEntities;
 

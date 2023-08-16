@@ -2,11 +2,13 @@ package com.fragranceapp.fragranceapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fragranceapp.fragranceapp.entity.enums.Role;
+import jakarta.validation.constraints.Email;
 
 import java.util.List;
 
 public class UserDTO {
 
+    @Email
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

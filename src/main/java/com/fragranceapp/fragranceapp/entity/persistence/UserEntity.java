@@ -2,6 +2,7 @@ package com.fragranceapp.fragranceapp.entity.persistence;
 
 import com.fragranceapp.fragranceapp.entity.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,6 +24,7 @@ public class UserEntity {
     @UpdateTimestamp
     private LocalDateTime usr_updated_at;
 
+    @Email
     private String email;
     private String password;
     private String name;
@@ -32,13 +34,11 @@ public class UserEntity {
     @OneToMany(
             mappedBy = "userEntity",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true
+            cascade = CascadeType.REMOVE
     )
     private Set<OrderEntity> orders;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserRoleEntity role;
 
     public UserEntity() {
