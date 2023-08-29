@@ -1,14 +1,11 @@
 package com.fragranceapp.fragranceapp.entity.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fragranceapp.fragranceapp.entity.enums.Category;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.Order;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "fragrances", schema = "fragranceapp")

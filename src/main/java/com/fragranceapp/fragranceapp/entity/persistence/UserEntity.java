@@ -1,6 +1,5 @@
 package com.fragranceapp.fragranceapp.entity.persistence;
 
-import com.fragranceapp.fragranceapp.entity.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import org.hibernate.annotations.CreationTimestamp;

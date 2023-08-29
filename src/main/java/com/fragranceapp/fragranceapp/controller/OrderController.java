@@ -34,6 +34,13 @@ public class OrderController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO newOrder) {
+        OrderDTO orderDTO = orderService.createOrder(newOrder);
+
+        return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity cancelOrder(@PathVariable long orderId) {
         orderService.cancelOrder(orderId);

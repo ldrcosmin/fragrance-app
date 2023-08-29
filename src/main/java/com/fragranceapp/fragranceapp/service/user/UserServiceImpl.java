@@ -1,7 +1,6 @@
 package com.fragranceapp.fragranceapp.service.user;
 
 import com.fragranceapp.fragranceapp.dto.UserDTO;
-import com.fragranceapp.fragranceapp.dto.UserRoleDTO;
 import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.UserRoleEntity;
 import com.fragranceapp.fragranceapp.exceptions.roleExceptions.RoleNotFoundException;
@@ -100,6 +99,7 @@ public class UserServiceImpl implements  UserService {
             throw new UserNotFoundException("The user with id " + userId + " doesn't exist");
         }
         user.get().setPassword(passwordConfig.passwordEncoder().encode(updateUser.getPassword()));
+        userRepository.save(user.get());
 
         return updateUser;
     }
