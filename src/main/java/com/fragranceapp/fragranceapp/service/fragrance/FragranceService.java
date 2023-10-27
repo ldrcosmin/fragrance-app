@@ -1,12 +1,8 @@
 package com.fragranceapp.fragranceapp.service.fragrance;
 
-import org.springframework.stereotype.Service;
 import com.fragranceapp.fragranceapp.dto.FragranceDTO;
-
 import java.util.List;
-import java.util.Optional;
 
-@Service
 public interface  FragranceService {
 
     FragranceDTO createFragrance(FragranceDTO newFragrance);

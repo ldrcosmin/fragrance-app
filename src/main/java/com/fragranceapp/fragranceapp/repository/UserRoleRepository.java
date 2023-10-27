@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface UserRoleRepository extends JpaRepository<UserRoleEntity, Long> {
 
     Optional<UserRoleEntity> findRoleById(long roleId);
+
 }

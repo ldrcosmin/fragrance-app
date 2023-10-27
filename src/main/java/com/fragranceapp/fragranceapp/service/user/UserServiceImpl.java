@@ -1,8 +1,10 @@
 package com.fragranceapp.fragranceapp.service.user;
 
 import com.fragranceapp.fragranceapp.dto.UserDTO;
+import com.fragranceapp.fragranceapp.entity.enums.Role;
 import com.fragranceapp.fragranceapp.entity.persistence.UserEntity;
 import com.fragranceapp.fragranceapp.entity.persistence.UserRoleEntity;
+import com.fragranceapp.fragranceapp.exceptions.roleExceptions.ForbiddenRoleException;
 import com.fragranceapp.fragranceapp.exceptions.roleExceptions.RoleNotFoundException;
 import com.fragranceapp.fragranceapp.exceptions.userExceptions.InvalidPasswordException;
 import com.fragranceapp.fragranceapp.exceptions.userExceptions.UserAlreadyExistException;
@@ -51,6 +53,12 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
+    public boolean emailAvailability(UserDTO newUser) {
+        Optional<UserEntity> user = userRepository.findUserByEmail(newUser.getEmail());
+        return user.isEmpty();
+    }
+
+    @Override
     public UserDTO createUser(UserDTO newUser) {
         if(!checkPassword(newUser.getPassword())) {
             throw new InvalidPasswordException("The password doesn't meet the requirements");
@@ -60,10 +68,32 @@ public class UserServiceImpl implements  UserService {
         if(userRoleEntity.isEmpty()) {
             throw new RoleNotFoundException("The role with id " + newUser.getRoleId() + " doesn't exist");
         }
-        for(UserEntity user : userRepository.findAll()) {
-            if(newUser.getEmail().equals(user.getEmail())) {
-                throw new UserAlreadyExistException("This user already exist!");
-            }
+        if(!emailAvailability(newUser)) {
+            throw new UserAlreadyExistException("This user already exists");
+        }
+        userEntity.setRole(userRoleEntity.get());
+        userEntity.setPassword(passwordConfig.passwordEncoder().encode(newUser.getPassword()));
+        userRepository.save(userEntity);
+
+        return newUser;
+    }
+
+
+    @Override
+    public UserDTO createRegularUser(UserDTO newUser) {
+        if(!checkPassword(newUser.getPassword())) {
+            throw new InvalidPasswordException("The password doesn't meet the requirements");
+        }
+        UserEntity userEntity = Mapper.dtoToUser(newUser);
+        Optional<UserRoleEntity> userRoleEntity = userRoleRepository.findRoleById(newUser.getRoleId());
+        if(userRoleEntity.isEmpty()) {
+            throw new RoleNotFoundException("The role with id " + newUser.getRoleId() + " doesn't exist");
+        }
+        if(userRoleEntity.get().getRole() != Role.CUSTOMER) {
+            throw new ForbiddenRoleException("You're only allowed to be registered as a customer");
+        }
+        if(!emailAvailability(newUser)) {
+            throw new UserAlreadyExistException("This user already exists");
         }
         userEntity.setRole(userRoleEntity.get());
         userEntity.setPassword(passwordConfig.passwordEncoder().encode(newUser.getPassword()));
