@@ -3,6 +3,10 @@ package com.fragranceapp.fragranceapp.entity.persistence;
 import com.fragranceapp.fragranceapp.entity.enums.Category;
 import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -10,6 +14,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "categories", schema = "fragranceapp")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class FragranceCategoryEntity {
 
     @Id
@@ -32,65 +40,4 @@ public class FragranceCategoryEntity {
     )
     private List<FragranceEntity> fragranceEntities;
 
-    public FragranceCategoryEntity() {
-
-    }
-
-    public FragranceCategoryEntity(Category category) {
-        this.category = category;
-    }
-
-    public FragranceCategoryEntity(Category category, List<FragranceEntity> fragranceEntities) {
-        this.category = category;
-        this.fragranceEntities = fragranceEntities;
-    }
-
-    public LocalDateTime getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
-    }
-
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public List<FragranceEntity> getFragranceEntities() {
-        return fragranceEntities;
-    }
-
-    public void setFragranceEntities(List<FragranceEntity> fragranceEntities) {
-        this.fragranceEntities = fragranceEntities;
-    }
-
-    @Override
-    public String toString() {
-        return "FragranceCategoryEntity{" +
-                "id=" + id +
-                ", category=" + category +
-                ", fragranceEntities=" + fragranceEntities +
-                '}';
-    }
 }
